@@ -73,4 +73,17 @@ public class Product {
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
     }
+
+
+    //utility method to add a supplier
+    public void addSupplier(Supplier supplier){
+        this.suppliers.add(supplier);
+        supplier.getProducts().add(this);
+    }
+
+    //utility method to remove a supplier
+    public void removeSupplier(Supplier supplier){
+        this.suppliers.remove(supplier);
+        supplier.getProducts().remove(this);
+    }
 }
