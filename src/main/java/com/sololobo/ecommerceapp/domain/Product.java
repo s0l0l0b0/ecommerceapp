@@ -2,12 +2,37 @@ package com.sololobo.ecommerceapp.domain;
 
 import com.sololobo.ecommerceapp.domain.enumeration.ProductCategory;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "product")
 public class Product {
-    Long id;
-    String name;
-    String imgUrl;
-    Double price;
-    ProductCategory productCategory;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    @Column(name = "img_url")
+    private String imgUrl;
+    private Double price;
+    @Column(name = "product_category")
+    private ProductCategory productCategory;
+
+    //created many-to-many relation with supplier table
+    @ManyToMany
+    @JoinTable(name = "product_supplier",
+    joinColumns = {@JoinColumn(name = "product_id")},
+    inverseJoinColumns = {@JoinColumn(name = "supplier_id")})
+    private Set<Supplier> suppliers = new HashSet<>();
+
+    public Set<Supplier> getSuppliers() {
+        return suppliers;
+    }
+
+    public void setSuppliers(Set<Supplier> suppliers) {
+        this.suppliers = suppliers;
+    }
 
     public Long getId() {
         return id;
