@@ -1,10 +1,22 @@
 package com.sololobo.ecommerceapp.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "order_product")
 public class OrderProduct {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long productId;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    Product product;
     Integer quantity;
-    Long orderId;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    Order order;
 
     public Long getId() {
         return id;
@@ -14,12 +26,12 @@ public class OrderProduct {
         this.id = id;
     }
 
-    public Long getProductId() {
-        return productId;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public Integer getQuantity() {
@@ -30,11 +42,11 @@ public class OrderProduct {
         this.quantity = quantity;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
