@@ -1,14 +1,42 @@
 package com.sololobo.ecommerceapp.domain;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "order")
 public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    Long customerId;
-    Long customerProductId;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    @OneToMany(mappedBy = "order")
+    private Set<OrderProduct> orderProducts = new HashSet<>();
+
     String shippingAdd;
     String shippingPhoneNo;
-    Double totalPrice;
-    Double shippingCharge;
-    Double payable;
+    //totalprice(product quantity) + shipping charge = payable
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
 
     public Long getId() {
         return id;
@@ -16,22 +44,6 @@ public class Order {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
-
-    public Long getCustomerProductId() {
-        return customerProductId;
-    }
-
-    public void setCustomerProductId(Long customerProductId) {
-        this.customerProductId = customerProductId;
     }
 
     public String getShippingAdd() {
@@ -50,27 +62,5 @@ public class Order {
         this.shippingPhoneNo = shippingPhoneNo;
     }
 
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
 
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public Double getShippingCharge() {
-        return shippingCharge;
-    }
-
-    public void setShippingCharge(Double shippingCharge) {
-        this.shippingCharge = shippingCharge;
-    }
-
-    public Double getPayable() {
-        return payable;
-    }
-
-    public void setPayable(Double payable) {
-        this.payable = payable;
-    }
 }
