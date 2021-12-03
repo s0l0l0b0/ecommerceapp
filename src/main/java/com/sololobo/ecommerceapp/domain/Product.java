@@ -16,6 +16,7 @@ public class Product {
     @Column(name = "img_url")
     private String imgUrl;
     private Double price;
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "product_category")
     private ProductCategory productCategory;
 
