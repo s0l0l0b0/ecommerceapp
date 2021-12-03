@@ -20,6 +20,7 @@ public class User {
     String bankAccNo;
     @Column(name = "phone_no")
     String phoneNo;
+    @Enumerated(value = EnumType.STRING)
     Role role;
     String email;
 
