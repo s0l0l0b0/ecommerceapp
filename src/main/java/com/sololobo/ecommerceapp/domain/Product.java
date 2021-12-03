@@ -20,6 +20,9 @@ public class Product {
     @Column(name = "product_category")
     private ProductCategory productCategory;
 
+    private String detail;
+
+
     //created many-to-many relation with supplier table
     @ManyToMany
     @JoinTable(name = "product_supplier",
@@ -73,6 +76,15 @@ public class Product {
 
     public void setProductCategory(ProductCategory productCategory) {
         this.productCategory = productCategory;
+    }
+
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
     }
 
 
