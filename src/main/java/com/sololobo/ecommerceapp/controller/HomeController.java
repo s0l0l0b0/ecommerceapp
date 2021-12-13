@@ -1,6 +1,7 @@
 package com.sololobo.ecommerceapp.controller;
 
 import com.sololobo.ecommerceapp.domain.Product;
+import com.sololobo.ecommerceapp.domain.enumeration.ProductCategory;
 import com.sololobo.ecommerceapp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +19,8 @@ public class HomeController {
     public ModelAndView homePage(){
         List<Product> productList = productRepository.findAll();
 
-
         return new ModelAndView("homeBase")
-                .addObject("productList", productList);
+                .addObject("productList", productList)
+                .addObject("productCategory", ProductCategory.values());
     }
 }
