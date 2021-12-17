@@ -21,13 +21,8 @@ public class RegistrationController {
     @Autowired
     UserRepository userRepository;
 
-//    @Bean
-//    PasswordEncoder getPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
     public String registration(){
@@ -41,7 +36,7 @@ public class RegistrationController {
             registrationDTO.setRole(Role.CUSTOMER);
             validateRegistrationDTO(registrationDTO);
             User user = registrationDTO.toUser();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return new ModelAndView("login")
                     .addObject("successMsg", "Registration Successful!");

@@ -15,7 +15,7 @@ public class HomeController {
     @Autowired
     ProductRepository productRepository;
 
-    @GetMapping("/homeBase")
+    @GetMapping()
     public ModelAndView homePage(){
         List<Product> productList = productRepository.findAll();
 
