@@ -96,7 +96,7 @@ ${error_msg}
         <input id="bank-name" type="text" placeholder="Enter Bank Name" name="bank" required>
 
         <label for="bank-acc-number"><b>Bank Account Number</b></label>
-        <input id="bank-acc-number" type="text" placeholder="Enter Bank Account Number" name="bankAccNo" required>
+        <input id="bank-acc-number" type="text" placeholder="Enter Bank Account Number" name="bankAccN" required>
 
         <button type="submit" class="registerbtn">Register</button>
 
