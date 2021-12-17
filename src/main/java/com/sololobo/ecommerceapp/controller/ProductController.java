@@ -1,6 +1,7 @@
 package com.sololobo.ecommerceapp.controller;
 
 import com.sololobo.ecommerceapp.domain.Product;
+import com.sololobo.ecommerceapp.domain.enumeration.ProductCategory;
 import com.sololobo.ecommerceapp.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +18,19 @@ public class ProductController {
 
     @GetMapping("/car")
     public ModelAndView returnCar(){
-        List<Product> carList = productRepository.findAll();
+         return new ModelAndView("car")
+                 .addObject("carList", productRepository.getByProductCategory(ProductCategory.CAR));
+    }
 
-        return new ModelAndView("car");
+    @GetMapping("/bike")
+    public ModelAndView returnBike(){
+        return new ModelAndView("bike")
+                .addObject("bikeList", productRepository.getByProductCategory(ProductCategory.BIKE));
+    }
+
+    @GetMapping("/bicycle")
+    public ModelAndView returnBicycle(){
+        return new ModelAndView("bicycle")
+                .addObject("bicycleList", productRepository.getByProductCategory(ProductCategory.BICYCLE));
     }
 }
