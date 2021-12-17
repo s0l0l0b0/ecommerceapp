@@ -1,6 +1,5 @@
 package com.sololobo.ecommerceapp.domain;
 
-import com.sololobo.ecommerceapp.domain.enumeration.Brand;
 import com.sololobo.ecommerceapp.domain.enumeration.ProductCategory;
 
 import javax.persistence.*;
@@ -23,8 +22,6 @@ public class Product {
 
     private String detail;
 
-    @Enumerated(value = EnumType.STRING)
-    private Brand brand;
 
     private Long rate;
 
@@ -89,10 +86,6 @@ public class Product {
     public String getDetail() {return detail;}
 
     public void setDetail(String detail) {this.detail = detail;}
-
-    public Brand getBrand() {return brand;}
-
-    public void setBrand(Brand brand) {this.brand = brand;}
 
     public Long getRate() {return rate;}
 
