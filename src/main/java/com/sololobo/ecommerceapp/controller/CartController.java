@@ -6,9 +6,14 @@ import com.sololobo.ecommerceapp.repository.redis.CartRepository;
 import com.sololobo.ecommerceapp.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -27,7 +32,11 @@ public class CartController {
         if(byId.isPresent()) {
             cart = byId.get();
         }
-        cart.getProductIds().add(productId);
+        Map<Long, Integer> cartProducts = cart.getCartProducts();
+        if (!cartProducts.containsKey(productId)) {
+             cartProducts.put(productId, 1);
+        }
+
         cartRepository.save(cart);
     }
 
@@ -39,7 +48,8 @@ public class CartController {
             throw new IllegalArgumentException("cart not found");
         }
         return new ModelAndView("cart")
-                .addObject("products", productRepository.getByIds(byId.get().getProductIds()));
+                .addObject("products", productRepository.getByIds(new HashSet<>(byId.get().getCartProducts().keySet())))
+                .addObject("cartProducts", byId.get().getCartProducts());
 
     }
 }

@@ -220,7 +220,7 @@
         </div>
         <div class="counter">
             <div class="btn">+</div>
-            <div class="count">2</div>
+            <div class="count">${cartProducts.get(item.id)}</div>
             <div class="btn">-</div>
         </div>
         <div class="prices">

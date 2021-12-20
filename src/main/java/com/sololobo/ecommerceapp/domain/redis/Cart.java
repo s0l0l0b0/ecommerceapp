@@ -2,13 +2,13 @@ package com.sololobo.ecommerceapp.domain.redis;
 
 import org.springframework.data.redis.core.RedisHash;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RedisHash("cart")
 public class Cart {
     String id;
-    Set<Long> productIds = new LinkedHashSet<>();
+    Map<Long, Integer> cartProducts = new LinkedHashMap<>();
 
     public Cart(String id) {
         this.id = id;
@@ -24,11 +24,11 @@ public class Cart {
         this.id = id;
     }
 
-    public Set<Long> getProductIds() {
-        return productIds;
+    public Map<Long, Integer> getCartProducts() {
+        return cartProducts;
     }
 
-    public void setProductIds(Set<Long> productIds) {
-        this.productIds = productIds;
+    public void setCartProducts(Map<Long, Integer> cartProducts) {
+        this.cartProducts = cartProducts;
     }
 }
