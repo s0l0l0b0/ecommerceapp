@@ -52,4 +52,48 @@ public class CartController {
                 .addObject("cartProducts", byId.get().getCartProducts());
 
     }
+
+
+    @ResponseBody
+    @PostMapping("/quantityIncrement")
+    public void quantityIncrements(@RequestParam Long productId) {
+        Cart cart = getCart();
+
+        Map<Long, Integer> cartProducts = cart.getCartProducts();
+        if (cartProducts.containsKey(productId)) {
+            Integer previousQuantity = cartProducts.get(productId);
+            cartProducts.put(productId, previousQuantity + 1);
+            cartRepository.save(cart);
+        }
+    }
+
+    @ResponseBody
+    @PostMapping("/quantityDecrement")
+    public void quantifyDecrements(@RequestParam Long productId) {
+        Cart cart = getCart();
+
+        Map<Long, Integer> cartProducts = cart.getCartProducts();
+        if (cartProducts.containsKey(productId)) {
+            Integer previousQuantity = cartProducts.get(productId);
+            if (previousQuantity > 1) {
+                cartProducts.put(productId, previousQuantity - 1);
+                cartRepository.save(cart);
+            }else{
+                throw new IllegalArgumentException("error occurred!");
+            }
+
+        }
+    }
+
+    private Cart getCart() {
+        String userEmail = Utility.getLoggedInUserEmail();
+        Optional<Cart> byId = cartRepository.findById(userEmail);
+
+        Cart cart = null;
+        if (byId.isPresent()) {
+            cart = byId.get();
+        }
+        return cart;
+    }
+
 }

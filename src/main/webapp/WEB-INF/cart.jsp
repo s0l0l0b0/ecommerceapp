@@ -16,6 +16,7 @@
     <title>Shopping Cart UI</title>
 <%--    <link rel="stylesheet" type="text/css" href="./style.css">--%>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,900" rel="stylesheet">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
 
     <style>
         body{
@@ -211,7 +212,7 @@
     <c:forEach items="${products}" var="item">
     <div class="Cart-Items">
         <div class="image-box">
-            <img src="${item.imgUrl}" style={{ height="120px" }} />
+            <img src="${item.imgUrl}" style="height:120px" />
         </div>
         <div class="about">
             <h1 class="title">${item.name}</h1>
@@ -219,9 +220,9 @@
 <%--            <img src="images/veg.png" style={{ height="30px" }}/>--%>
         </div>
         <div class="counter">
-            <div class="btn">+</div>
-            <div class="count">${cartProducts.get(item.id)}</div>
-            <div class="btn">-</div>
+            <div class="btn" onclick="increaseQty(${item.id})" >+</div>
+            <div class="count"  id="count">${cartProducts.get(item.id)}</div>
+            <div class="btn" onclick="decreaseQty(${item.id})">-</div>
         </div>
         <div class="prices">
             <div class="amount">${item.price}</div>
@@ -243,6 +244,37 @@
         <button class="button">Checkout</button></div>
 </div>
 
+<script type="application/javascript">
+    function increaseQty(productId) {
+        fetch("/quantityIncrement?productId=" + productId, {
+            method: "POST"
+        }).then(res => {
+            if (res.ok){
+                // window.location.reload()
+                // refreshCount()
+                $('#count').load(location.href + '#count');
+            }
+        })
+            .catch(function (){
+                alert("Error occurred!");
+            });
+    }
+    function decreaseQty(productId) {
+        fetch("/quantityDecrement?productId=" + productId, {
+            method: "POST"
+        }).then(res => {
+            if (res.ok){
+                window.location.reload()
+            }
+        })
+            .catch(function (){
+                alert("Error occurred!");
+            });
+    }
 
+    function refreshCount(){
+        $('#count').load(location.href + '#count');
+    }
+</script>
 </body>
 </html>
