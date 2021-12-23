@@ -203,12 +203,17 @@
     </style>
 </head>
 <body>
-<div class="CartContainer">
-    <div class="Header">
-        <h3 class="Heading">Shopping Cart</h3>
-        <h5 class="Action">Remove all</h5>
-    </div>
 
+<div class="CartContainer">
+<%--    <div class="Header">--%>
+<%--        <h3 class="Heading">Shopping Cart</h3>--%>
+<%--        <c:forEach items="${products}" var="item">--%>
+<%--        <h5 class="Action" onclick="deleteCart(${item.id})">Remove all</h5>--%>
+<%--        </c:forEach>--%>
+<%--    </div>--%>
+
+    <c:set var="subTotal" value="0" />
+    <c:set var="totalItem" value="0"/>
     <c:forEach items="${products}" var="item">
     <div class="Cart-Items">
         <div class="image-box">
@@ -225,11 +230,13 @@
             <div class="btn" onclick="decreaseQty(${item.id})">-</div>
         </div>
         <div class="prices">
-            <div class="amount">${item.price}</div>
+            <c:set var="subTotal" value="${subTotal + cartProducts.get(item.id) * item.price}" />
+            <div class="amount">${cartProducts.get(item.id) * item.price}</div>
             <div class="save"><u>Save for later</u></div>
-            <div class="remove"><u>Remove</u></div>
+            <h5 class="Action" onclick="deleteOne(${item.id})">Remove</h5>
         </div>
     </div>
+        <c:set var="totalItem" value="${totalItem + cartProducts.get(item.id)}"/>
     </c:forEach>
 
     <hr>
@@ -237,9 +244,10 @@
         <div class="total">
             <div>
                 <div class="Subtotal">Sub-Total</div>
-                <div class="items">2 items</div>
+
+                <div class="items">${totalItem}</div>
             </div>
-            <div class="total-amount">$6.18</div>
+            <div class="total-amount">$${subTotal}</div>
         </div>
         <button class="button">Checkout</button></div>
 </div>
@@ -250,9 +258,7 @@
             method: "POST"
         }).then(res => {
             if (res.ok){
-                // window.location.reload()
-                // refreshCount()
-                $('#count').load(location.href + '#count');
+                window.location.reload()
             }
         })
             .catch(function (){
@@ -271,9 +277,21 @@
                 alert("Error occurred!");
             });
     }
-
     function refreshCount(){
         $('#count').load(location.href + '#count');
+    }
+    function deleteOne(productId){
+        fetch("/deleteOne?productId=" + productId, {
+            method: "POST"
+        }).then(res => {
+            if (res.ok){
+                alert("Removed!")
+                window.location.reload()
+            }
+        })
+            .catch(function (){
+                alert("Error occurred!");
+            });
     }
 </script>
 </body>
