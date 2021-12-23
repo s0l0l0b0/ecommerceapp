@@ -81,7 +81,7 @@
               <div class="new-arrival-cart">
                 <p>
                   <span class="lnr lnr-cart"></span>
-                  <a href="#">add <span>to </span> cart</a>
+                  <button type="submit" onclick="addToCart(${item.id})">Add To Cart</button>
                 </p>
                 <p class="arrival-review pull-right">
                   <span class="lnr lnr-heart"></span>
@@ -126,6 +126,9 @@
 
 <!--Custom JS-->
 <script src="assets/js/custom.js"></script>
+
+<script src="static/js/add-to-cart.js"></script>
+
 
 </body>
 </html>
