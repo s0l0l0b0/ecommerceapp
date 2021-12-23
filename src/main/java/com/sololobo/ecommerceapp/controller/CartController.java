@@ -23,6 +23,8 @@ public class CartController {
     @Autowired
     ProductRepository productRepository;
 
+
+    //to add a item to the cart
     @ResponseBody
     @PostMapping("/add-to-cart")
     public void addToCart(@RequestParam Long productId){
@@ -40,6 +42,7 @@ public class CartController {
         cartRepository.save(cart);
     }
 
+    //to display all the items in the cart
     @GetMapping("/cart")
     public ModelAndView cart(){
         String userEmail = Utility.getLoggedInUserEmail();
@@ -54,6 +57,7 @@ public class CartController {
     }
 
 
+    //to increase the quantity of an item in the cart
     @ResponseBody
     @PostMapping("/quantityIncrement")
     public void quantityIncrements(@RequestParam Long productId) {
@@ -67,6 +71,8 @@ public class CartController {
         }
     }
 
+
+    //to decrease the quantity of an item in the cart
     @ResponseBody
     @PostMapping("/quantityDecrement")
     public void quantifyDecrements(@RequestParam Long productId) {
@@ -84,6 +90,25 @@ public class CartController {
 
         }
     }
+
+
+    //to delete the entire cart
+    @ResponseBody
+    @PostMapping("deleteOne")
+    public void deleteOne(@RequestParam Long productId){
+        Cart cart = getCart();
+
+        Map<Long, Integer> cartProducts = cart.getCartProducts();
+        if(cartProducts.containsKey(productId)){
+            cartProducts.remove(productId);
+            cartRepository.save(cart);
+        }
+        else {
+            throw new IllegalArgumentException("Error Occurred!");
+        }
+    }
+
+
 
     private Cart getCart() {
         String userEmail = Utility.getLoggedInUserEmail();
