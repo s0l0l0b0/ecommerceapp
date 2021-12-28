@@ -15,7 +15,7 @@ public class Order {
     @JoinColumn(name = "user_id")
     User user;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
     private Set<OrderProduct> orderProducts = new HashSet<>();
 
     String shippingAdd;
