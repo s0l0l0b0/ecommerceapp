@@ -1,6 +1,7 @@
 package com.sololobo.ecommerceapp.utility;
 
 
+import com.sololobo.ecommerceapp.domain.enumeration.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,10 +23,10 @@ public class Utility {
         return Objects.nonNull(authentication) && !authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ANONYMOUS"));
     }
 
-//    public static boolean isAdminUser() {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        return Objects.nonNull(authentication) && authentication.getAuthorities().contains(new SimpleGrantedAuthority(Role.ADMIN.name()));
-//    }
+    public static boolean isAdminUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return Objects.nonNull(authentication) && authentication.getAuthorities().contains(new SimpleGrantedAuthority(Role.ADMIN.name()));
+    }
 
     public static String getLoggedInUserEmail(){
         return SecurityContextHolder.getContext().getAuthentication().getName();
