@@ -33,6 +33,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 //        super.configure(http);
         http
                 .authorizeRequests()
+                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
 //                .antMatchers("/**").hasAnyRole(Role.STUDENT.name(), Role.FACULTY.name(), Role.ADMIN.name())
                 .antMatchers("/static/**").permitAll()
                 .antMatchers("/login", "/registration").permitAll()
@@ -42,6 +43,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login")
                 .and()
                 .logout()
-                .logoutSuccessUrl("/login");
+                .logoutSuccessUrl("/login")
+                .and()
+                .csrf().disable();
     }
 }
