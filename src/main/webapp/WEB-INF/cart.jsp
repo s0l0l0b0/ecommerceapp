@@ -23,7 +23,7 @@
             margin: 0;
             padding: 0;
             background: linear-gradient(to bottom right, #E3F0FF, #FAFCFF);
-            height: 100vh;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -249,7 +249,7 @@
             </div>
             <div class="total-amount">$${subTotal}</div>
         </div>
-        <button class="button">Checkout</button></div>
+        <button class="button" onclick="window.location.href='checkout';">Checkout</button></div>
 </div>
 
 <script type="application/javascript">

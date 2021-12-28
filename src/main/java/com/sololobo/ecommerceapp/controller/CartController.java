@@ -87,12 +87,11 @@ public class CartController {
             }else{
                 throw new IllegalArgumentException("error occurred!");
             }
-
         }
     }
 
 
-    //to delete the entire cart
+    //to delete an item from the cart
     @ResponseBody
     @PostMapping("deleteOne")
     public void deleteOne(@RequestParam Long productId){

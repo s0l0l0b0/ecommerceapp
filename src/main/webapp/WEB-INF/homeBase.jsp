@@ -156,46 +156,10 @@
 				                		<a href="#"><span class="lnr lnr-cog"></span></a>
 				                	</li><!--/.search-->
 				                    <li class="dropdown">
-				                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+				                        <a href="cart" class="dropdown-toggle" data-toggle="dropdown" >
 				                            <span class="lnr lnr-cart"></span>
-											<span class="badge badge-bg-1">2</span>
+<%--											<span class="badge badge-bg-1">2</span>--%>
 				                        </a>
-				                        <ul class="dropdown-menu cart-list s-cate">
-				                            <li class="single-cart-list">
-				                                <a href="#" class="photo"><img src="assets/images/collection/arrivals1.png" class="cart-thumb" alt="image" /></a>
-				                                <div class="cart-list-txt">
-				                                	<h6><a href="#">arm <br> chair</a></h6>
-				                                	<p>1 x - <span class="price">$180.00</span></p>
-				                                </div><!--/.cart-list-txt-->
-				                                <div class="cart-close">
-				                                	<span class="lnr lnr-cross"></span>
-				                                </div><!--/.cart-close-->
-				                            </li><!--/.single-cart-list -->
-				                            <li class="single-cart-list">
-				                                <a href="#" class="photo"><img src="assets/images/collection/arrivals2.png" class="cart-thumb" alt="image" /></a>
-				                                <div class="cart-list-txt">
-				                                	<h6><a href="#">single <br> armchair</a></h6>
-				                                	<p>1 x - <span class="price">$180.00</span></p>
-				                                </div><!--/.cart-list-txt-->
-				                                <div class="cart-close">
-				                                	<span class="lnr lnr-cross"></span>
-				                                </div><!--/.cart-close-->
-				                            </li><!--/.single-cart-list -->
-				                            <li class="single-cart-list">
-				                                <a href="#" class="photo"><img src="assets/images/collection/arrivals3.png" class="cart-thumb" alt="image" /></a>
-				                                <div class="cart-list-txt">
-				                                	<h6><a href="#">wooden arn <br> chair</a></h6>
-				                                	<p>1 x - <span class="price">$180.00</span></p>
-				                                </div><!--/.cart-list-txt-->
-				                                <div class="cart-close">
-				                                	<span class="lnr lnr-cross"></span>
-				                                </div><!--/.cart-close-->
-				                            </li><!--/.single-cart-list -->
-				                            <li class="total">
-				                                <span>Total: $0.00</span>
-				                                <button class="btn-cart pull-right" onclick="window.location.href='#'">view cart</button>
-				                            </li>
-				                        </ul>
 				                    </li><!--/.dropdown-->
 				                </ul>
 				            </div><!--/.attr-nav-->
@@ -216,7 +180,7 @@
 				                <ul class="nav navbar-nav navbar-center" data-in="fadeInDown" data-out="fadeOutUp">
 				                    <li class=" scroll active"><a href="#home">home</a></li>
 				                    <li class="scroll"><a href="#new-arrivals">new arrival</a></li>
-				                    <li class="scroll"><a href="#feature">features</a></li>
+				                    <li class="scroll"><a href="#feature">category</a></li>
 				                    <li class="scroll"><a href="#blog">blog</a></li>
 				                    <li class="scroll"><a href="#newsletter">contact</a></li>
 				                </ul><!--/.nav -->

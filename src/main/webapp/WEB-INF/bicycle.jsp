@@ -87,6 +87,7 @@
                                 <p>
                                     <span class="lnr lnr-cart"></span>
                                     <button type="submit" onclick="addToCart(${item.id})">Add To Cart</button>
+                                    <button type="submit" onclick="window.location.href='single-checkout';">Buy Now</button>
                                 </p>
                                 <p class="arrival-review pull-right">
                                     <span class="lnr lnr-heart"></span>
