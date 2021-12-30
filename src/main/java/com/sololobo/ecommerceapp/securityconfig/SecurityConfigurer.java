@@ -1,5 +1,6 @@
 package com.sololobo.ecommerceapp.securityconfig;
 
+import com.sololobo.ecommerceapp.domain.enumeration.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,13 +31,10 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        super.configure(http);
         http
                 .authorizeRequests()
-                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
-//                .antMatchers("/**").hasAnyRole(Role.STUDENT.name(), Role.FACULTY.name(), Role.ADMIN.name())
-                .antMatchers("/static/**").permitAll()
-                .antMatchers("/login", "/registration").permitAll()
+                .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
+                .antMatchers("/static/**", "/login", "/registration").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

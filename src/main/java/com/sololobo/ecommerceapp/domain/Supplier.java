@@ -17,6 +17,14 @@ public class Supplier {
     @ManyToMany(mappedBy = "suppliers")
     private Set<Product> products = new HashSet<>();
 
+    public Supplier() {
+
+    }
+
+    public Supplier(String name) {
+        this.name = name;
+    }
+
     public Set<Product> getProducts() {
         return products;
     }
