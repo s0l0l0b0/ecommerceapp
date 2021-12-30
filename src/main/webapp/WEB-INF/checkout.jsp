@@ -128,7 +128,7 @@
 <div class="row">
     <div class="col-75">
         <div class="container">
-<%--            <form action="/action_page.php">--%>
+            <form action="/checkout" method="post">
 
                 <div class="row">
                     <div class="col-50">
@@ -139,19 +139,19 @@
                         <label><i class="fa fa-envelope"></i> Contact No.: ${user.phoneNo}</label>
                         <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
                         <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
-                        <label for="city"><i class="fa fa-institution"></i> City</label>
-                        <input type="text" id="city" name="city" placeholder="New York">
+<%--                        <label for="city"><i class="fa fa-institution"></i> City</label>--%>
+<%--                        <input type="text" id="city" name="city" placeholder="New York">--%>
 
-                        <div class="row">
-                            <div class="col-50">
-                                <label for="state">State</label>
-                                <input type="text" id="state" name="state" placeholder="NY">
-                            </div>
+<%--                        <div class="row">--%>
 <%--                            <div class="col-50">--%>
-<%--                                <label for="zip">Zip</label>--%>
-<%--                                <input type="text" id="zip" name="zip" placeholder="10001">--%>
+<%--                                <label for="state">State</label>--%>
+<%--                                <input type="text" id="state" name="state" placeholder="NY">--%>
 <%--                            </div>--%>
-                        </div>
+<%--&lt;%&ndash;                            <div class="col-50">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                <label for="zip">Zip</label>&ndash;%&gt;--%>
+<%--&lt;%&ndash;                                <input type="text" id="zip" name="zip" placeholder="10001">&ndash;%&gt;--%>
+<%--&lt;%&ndash;                            </div>&ndash;%&gt;--%>
+<%--                        </div>--%>
                     </div>
 
                     <div class="col-50">
@@ -183,8 +183,8 @@
 <%--                <label>--%>
 <%--                    <input type="checkbox" checked="checked" name="sameadr"> Shipping address same as billing--%>
 <%--                </label>--%>
-                <input type="submit" value="Continue to checkout" class="btn">
-<%--            </form>--%>
+                <input type="submit" value="Checkout" class="btn">
+            </form>
         </div>
     </div>
 
