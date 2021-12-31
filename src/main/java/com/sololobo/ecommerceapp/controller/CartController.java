@@ -66,19 +66,23 @@ public class CartController {
 
     //to display all the items in the cart
     @GetMapping("/cart")
-    public ModelAndView cart(){
+    public ModelAndView cart(@CookieValue(value = "gci", required = false) String guestCartId){
         String userEmail = Utility.getLoggedInUserEmail();
+        Optional<Cart> optionalCart;
         if(Objects.isNull(userEmail)){
-
+            if (Objects.isNull((guestCartId))){
+                return new ModelAndView("redirect:/");
+            }
+             optionalCart = cartRepository.findById(guestCartId);
+        }else {
+            optionalCart = cartRepository.findById(userEmail);
         }
-        Optional<Cart> byId = cartRepository.findById(userEmail);
-        if(byId.isEmpty()){
+        if(optionalCart.isEmpty()){
             throw new IllegalArgumentException("cart not found");
         }
         return new ModelAndView("cart")
-                .addObject("products", productRepository.getByIds(new HashSet<>(byId.get().getCartProducts().keySet())))
-                .addObject("cartProducts", byId.get().getCartProducts());
-
+                .addObject("products", productRepository.getByIds(new HashSet<>(optionalCart.get().getCartProducts().keySet())))
+                .addObject("cartProducts", optionalCart.get().getCartProducts());
     }
 
 
