@@ -29,7 +29,12 @@ public class Utility {
     }
 
     public static String getLoggedInUserEmail(){
-        return SecurityContextHolder.getContext().getAuthentication().getName();
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(name.equals("anonymousUser")){
+            return null;
+        }
+        return name;
     }
 
 
