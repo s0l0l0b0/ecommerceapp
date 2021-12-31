@@ -94,6 +94,7 @@ public class CheckoutController {
 
         cartRepository.delete(byId.get());
 
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/")
+                .addObject("order", order);
     }
 }
