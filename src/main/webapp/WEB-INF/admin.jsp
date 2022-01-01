@@ -139,9 +139,6 @@
         <a href="/addNewProduct">Add New Product</a>
     </button>
 
-    <button>
-        <a href="/order">Order</a>
-    </button>
 </div>
 
 <div class="row">
