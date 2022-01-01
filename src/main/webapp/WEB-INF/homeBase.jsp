@@ -170,7 +170,7 @@
 				                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
 				                    <i class="fa fa-bars"></i>
 				                </button>
-				                <a class="navbar-brand" href="homeBase.jsp">furn.</a>
+				                <a class="navbar-brand" href="homeBase.jsp">DEMO</a>
 
 				            </div><!--/.navbar-header-->
 				            <!-- End Header Navigation -->
