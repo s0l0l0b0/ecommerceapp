@@ -36,7 +36,7 @@ public class DataInitializer {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @Bean
+    //@Bean
     ApplicationRunner runner() {
         return args -> {
             LOGGER.info("Initializing Data");
