@@ -6,12 +6,15 @@ import com.sololobo.ecommerceapp.repository.redis.CartRepository;
 import com.sololobo.ecommerceapp.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class CartController {
@@ -24,65 +27,33 @@ public class CartController {
     //to add a item to the cart
     @ResponseBody
     @PostMapping("/add-to-cart")
-    public void addToCart(@RequestParam Long productId, @CookieValue(value = "gci", required = false) String guestCartId,
-                          HttpServletResponse httpServletResponse){
-
+    public void addToCart(@RequestParam Long productId){
         String userEmail = Utility.getLoggedInUserEmail();
-
-        if(Objects.isNull(userEmail)){
-            if (Objects.isNull(guestCartId)){
-                Random random = new Random();
-                String randomUser = String.valueOf(random.nextInt());
-                Cookie cookie = new Cookie("gci",randomUser);
-                cookie.setPath("/");
-                httpServletResponse.addCookie(cookie);
-                Cart cart = new Cart(randomUser);
-                cart.getCartProducts().put(productId, 1);
-                cartRepository.save(cart);
-            } else {
-                Optional<Cart> byId = cartRepository.findById(guestCartId);
-                Cart cart = byId.get();
-                Map<Long, Integer> cartProducts = cart.getCartProducts();
-                if (!cartProducts.containsKey(productId)) {
-                    cartProducts.put(productId, 1);
-                }
-                cartRepository.save(cart);
-            }
-        }else {
-            Optional<Cart> byId = cartRepository.findById(userEmail);
-            Cart cart = new Cart(userEmail);
-            if(byId.isPresent()) {
-                cart = byId.get();
-            }
-            Map<Long, Integer> cartProducts = cart.getCartProducts();
-            if (!cartProducts.containsKey(productId)) {
-                cartProducts.put(productId, 1);
-            }
-            cartRepository.save(cart);
+        Optional<Cart> byId = cartRepository.findById(userEmail);
+        Cart cart = new Cart(userEmail);
+        if(byId.isPresent()) {
+            cart = byId.get();
+        }
+        Map<Long, Integer> cartProducts = cart.getCartProducts();
+        if (!cartProducts.containsKey(productId)) {
+             cartProducts.put(productId, 1);
         }
 
-
+        cartRepository.save(cart);
     }
 
     //to display all the items in the cart
     @GetMapping("/cart")
-    public ModelAndView cart(@CookieValue(value = "gci", required = false) String guestCartId){
+    public ModelAndView cart(){
         String userEmail = Utility.getLoggedInUserEmail();
-        Optional<Cart> optionalCart;
-        if(Objects.isNull(userEmail)){
-            if (Objects.isNull((guestCartId))){
-                return new ModelAndView("redirect:/");
-            }
-             optionalCart = cartRepository.findById(guestCartId);
-        }else {
-            optionalCart = cartRepository.findById(userEmail);
-        }
-        if(optionalCart.isEmpty()){
+        Optional<Cart> byId = cartRepository.findById(userEmail);
+        if(byId.isEmpty()){
             throw new IllegalArgumentException("cart not found");
         }
         return new ModelAndView("cart")
-                .addObject("products", productRepository.getByIds(new HashSet<>(optionalCart.get().getCartProducts().keySet())))
-                .addObject("cartProducts", optionalCart.get().getCartProducts());
+                .addObject("products", productRepository.getByIds(new HashSet<>(byId.get().getCartProducts().keySet())))
+                .addObject("cartProducts", byId.get().getCartProducts());
+
     }
 
 

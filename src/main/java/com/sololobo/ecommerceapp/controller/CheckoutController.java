@@ -14,7 +14,6 @@ import com.sololobo.ecommerceapp.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -46,18 +44,13 @@ public class CheckoutController {
         return new ModelAndView("single-checkout");
     }
 
-
     @GetMapping("/checkout")
-    public ModelAndView cart(@CookieValue(value = "gci", required = false) String guestCartId){
+    public ModelAndView cart(){
         String userEmail = Utility.getLoggedInUserEmail();
-
-        if (Objects.isNull(userEmail)){
-            return new ModelAndView("redirect:/login");
-        }
         Optional<Cart> byId = cartRepository.findById(userEmail);
         Optional<User> userByEmail = userRepository.getUserByEmail(userEmail);
         if (userByEmail.isEmpty()){
-            throw new IllegalArgumentException("user not found");
+            throw new IllegalArgumentException("cart not found");
         }
         if(byId.isEmpty()){
             throw new IllegalArgumentException("cart not found");
