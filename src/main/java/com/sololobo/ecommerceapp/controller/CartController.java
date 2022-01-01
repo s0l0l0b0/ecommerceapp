@@ -48,7 +48,7 @@ public class CartController {
         String userEmail = Utility.getLoggedInUserEmail();
         Optional<Cart> byId = cartRepository.findById(userEmail);
         if(byId.isEmpty()){
-            throw new IllegalArgumentException("cart not found");
+            return new ModelAndView("redirect:/");
         }
         return new ModelAndView("cart")
                 .addObject("products", productRepository.getByIds(new HashSet<>(byId.get().getCartProducts().keySet())))
