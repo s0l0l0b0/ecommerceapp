@@ -14,12 +14,15 @@ import com.sololobo.ecommerceapp.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 
 @Controller
@@ -45,12 +48,16 @@ public class CheckoutController {
 
 
     @GetMapping("/checkout")
-    public ModelAndView cart(){
+    public ModelAndView cart(@CookieValue(value = "gci", required = false) String guestCartId){
         String userEmail = Utility.getLoggedInUserEmail();
+
+        if (Objects.isNull(userEmail)){
+            return new ModelAndView("redirect:/login");
+        }
         Optional<Cart> byId = cartRepository.findById(userEmail);
         Optional<User> userByEmail = userRepository.getUserByEmail(userEmail);
         if (userByEmail.isEmpty()){
-            throw new IllegalArgumentException("cart not found");
+            throw new IllegalArgumentException("user not found");
         }
         if(byId.isEmpty()){
             throw new IllegalArgumentException("cart not found");
@@ -89,12 +96,23 @@ public class CheckoutController {
             orderProduct.setOrder(order);
 
             orderProductRepository.save(orderProduct);
-        }
 
+        }
 
         cartRepository.delete(byId.get());
 
-        return new ModelAndView("redirect:/")
+        return new ModelAndView("redirect:/receipt?orderId=" + order.getId());
+    }
+
+    @GetMapping("/receipt")
+    public ModelAndView receipt(@RequestParam Long orderId){
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isEmpty()){
+            throw new IllegalArgumentException("error!");
+        }
+        Order order = optionalOrder.get();
+
+        return new ModelAndView("receipt")
                 .addObject("order", order);
     }
 }
